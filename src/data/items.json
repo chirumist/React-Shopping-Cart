@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Small Game",
+        "price": 10.0,
+        "imgUrl": "/images/01.jpeg"
+    },
+    {
+        "id": 2,
+        "name": "Simple Sunglass's",
+        "price": 2160,
+        "imgUrl": "/images/02.jpeg"
+    },
+    {
+        "id": 3,
+        "name": "Matelframe Sunglass's",
+        "price": 5678,
+        "imgUrl": "/images/03.jpeg"
+    },
+    {
+        "id": 4,
+        "name": "Chapple Watch",
+        "price": 1.23,
+        "imgUrl": "/images/04.jpeg"
+    }
+]
