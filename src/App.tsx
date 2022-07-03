@@ -12,7 +12,7 @@ import {Navbar} from './components/Navbar'
 import {ShoppingCartProvider} from './context/ShoppingCartContext'
 
 // Pages Components
-import {Home} from './pages/Home'
+import {Category} from './pages/Category'
 import {Store} from './pages/Store'
 import {About} from './pages/About'
 
@@ -28,8 +28,8 @@ function App(props: Props) {
           <Toolbar />
           <Container maxWidth="xl" sx={{py: 3}}>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/store" element={<Store />} />
+              <Route path="/" element={<Store />} />
+              <Route path="/category" element={<Category />} />
               <Route path="/about" element={<About />} />
             </Routes>
           </Container>

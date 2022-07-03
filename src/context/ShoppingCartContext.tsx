@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useState } from "react";
+import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 
 type ShoppingCartProp = {
     children: ReactNode
@@ -33,13 +33,18 @@ export function ShoppingCartProvider({children }: ShoppingCartProp) {
     const cartDrawer = isOpen
     const cartQty = cartItems.reduce((acc, item) => item.qty + acc, 0)
 
+    useEffect(() => {
+        if(cartQty == 0) {
+            setIsOpen(false)
+        }
+    }, [cartItems])
+    
     const getItemQuantity = (id: number) => {
         return cartItems.find(items => items.id === id)?.qty || 0
     }
 
     const increaseItemQuantity = (id: number) => {
         setCartItems(listLitem => {
-            console.log(listLitem.find(item => item.id === id))
             if(listLitem.find(item => item.id === id) == null) {
                 return [...listLitem, {id, qty: 1}]
             } else {
@@ -71,7 +76,7 @@ export function ShoppingCartProvider({children }: ShoppingCartProp) {
     }
 
     const removeItem = (id: number) => {
-        return setCartItems(() => cartItems.filter(item => item.id !== id));
+        setCartItems(() => cartItems.filter(item => item.id !== id))
     }
 
     const openCart = () => {

@@ -17,11 +17,6 @@ const LinkBehavior = React.forwardRef<
 
 const theme = createTheme({
   components: {
-    MuiLink: {
-      defaultProps: {
-        component: LinkBehavior,
-      },
-    },
     MuiButtonBase: {
       defaultProps: {
         LinkComponent: LinkBehavior,

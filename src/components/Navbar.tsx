@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box, Typography, Divider, List, ListItem, ListItemButton, ListItemText ,Button, Drawer, AppBar, IconButton, Toolbar, Link } from '@mui/material'
-
+import { Link as RouterLink } from 'react-router-dom'
 import { CartDrawer } from './CartDrawer';
 
 const drawerWidth = 240;
@@ -10,7 +10,7 @@ const navItems = [
         name: 'Home', path: '/'
     },
     {
-        name: 'Store', path: '/store'
+        name: 'Category', path: '/category'
     },
     {
         name: 'About', path: '/about'
@@ -41,13 +41,15 @@ export function Navbar (props: Props) {
         <Divider />
         <List>
             {navItems.map((item) => (
-            <ListItem key={item.name} disablePadding>
-                <ListItemButton>
-                    <ListItemText>
-                        <Link underline="none" href={item.path}>{item.name}</Link>
-                    </ListItemText>
-                </ListItemButton>
-            </ListItem>
+              <RouterLink style={{textDecoration: 'none'}} to={item.path} key={item.name}>
+                <ListItem disablePadding>
+                      <ListItemButton>
+                            <ListItemText>
+                                {item.name}
+                            </ListItemText>
+                      </ListItemButton>
+                </ListItem>
+              </RouterLink>
             ))}
         </List>
         </Box>

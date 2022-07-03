@@ -1,41 +1,40 @@
 import React from 'react'
-// Data
-import ItemData from '../data/items.json'
 
-import {Box, Badge, IconButton, Drawer, List, ListItem, ListItemText, ListItemAvatar, Avatar, Typography, Divider} from '@mui/material'
+import {Badge, IconButton, Drawer, List, ListItem, Typography} from '@mui/material'
+
+// Custom Components
+import {CartItem} from './CartItem'
 
 // Context
 import {useShoppingCart} from '../context/ShoppingCartContext'
+
+// Data
+import ItemData from '../data/items.json'
 
 // Utilities
 import {formatCurrency} from '../utilities/formatCurrency'
 
 export function CartDrawer () {
-    const {cartQty,cartItems, cartDrawer, openCart, closeCart, removeItem} = useShoppingCart()
-
-    const findItem = (id: number) => {
-        return ItemData.find(item => item.id === id)
-    }
+    const {cartQty,cartItems, cartDrawer, openCart, closeCart} = useShoppingCart()
 
     const CartList = (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        <List sx={{ width: '100%', maxWidth: {xs: '100vw',md: 360}, bgcolor: 'background.paper' }}>
+            <ListItem>
+                <Typography variant="h4" sx={{flexGrow: 1}}>Cart</Typography>
+                <IconButton onClick={closeCart}><span className="material-symbols-outlined">close</span></IconButton>
+            </ListItem>
             {cartItems.map((item, index) => (
-                <ListItem alignItems="center" key={index}>
-                    <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src={findItem(item.id)?.imgUrl} />
-                    </ListItemAvatar>
-                    <Box sx={{width: 300}}>
-                        <ListItemText primary={findItem(item.id)?.name} secondary={`Price: ${formatCurrency(findItem(item.id)?.price * item.qty || 0)}`} />
-                        <ListItemText secondary={`Qty: ${item.qty}`} />
-                    </Box>
-                    <IconButton sx={{ml:3}} color="error" onClick={() => removeItem(item.id)}>
-                        <span className="material-symbols-outlined">delete</span>
-                    </IconButton>
-                </ListItem>
+                <CartItem {...item} key={index} />
             ))}
             <ListItem>
                 <Typography variant="h5" sx={{flexGrow: 1}}>Total:</Typography>
-                <Typography variant="h6">{formatCurrency(cartItems.reduce((old, item) => (findItem(item.id)?.price * item.qty) + old,0))}</Typography>
+                <Typography variant="h6">{formatCurrency(
+                    cartItems.reduce((total, cartItem) => {
+                        const item =  ItemData.find(cart => cart.id === cartItem.id)
+                        if(item == null) return total
+                        return total + item.price * cartItem.qty
+                    }, 0)
+                )}</Typography>
             </ListItem>
         </List>
     )
