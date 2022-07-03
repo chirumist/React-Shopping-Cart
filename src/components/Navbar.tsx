@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { Box, Typography, Divider, List, ListItem, ListItemButton, ListItemText ,Button, Drawer, AppBar, IconButton, Toolbar, Link, Badge,
-    Menu, MenuItem } from '@mui/material'
+import { Box, Typography, Divider, List, ListItem, ListItemButton, ListItemText ,Button, Drawer, AppBar, IconButton, Toolbar, Link } from '@mui/material'
+
+import { CartDrawer } from './CartDrawer';
 
 const drawerWidth = 240;
 const navItems = [
@@ -28,21 +29,10 @@ export function Navbar (props: Props) {
 
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
         <Typography variant="h6" sx={{ my: 2 }}>
@@ -64,7 +54,6 @@ export function Navbar (props: Props) {
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
-  
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -93,31 +82,7 @@ export function Navbar (props: Props) {
                 </Button>
               ))}
             </Box>
-            <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                onClick={handleClick}
-                color="inherit"
-            >
-                <Badge badgeContent={0} color="error">
-                    <span className="material-symbols-outlined">notifications</span>
-                </Badge>
-            </IconButton>
-              {/* <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu> */}
+            <CartDrawer />
           </Toolbar>
         </AppBar>
         <Box component="nav">
